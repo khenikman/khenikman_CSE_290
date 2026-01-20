@@ -1,5 +1,6 @@
 #include <iostream>
 #include "Cube.h"
+#include "Cube.cpp"
 using namespace std;
 int main() {
     Cube cube;

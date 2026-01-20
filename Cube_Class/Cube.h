@@ -1,4 +1,5 @@
-class Cube{
+#pragma once
+class Cube {
 
     
 private:

@@ -1,4 +1,5 @@
 #include "Square.h"
+#include "Square.cpp"
 using namespace std;
 #include <iostream>
 int main() {
@@ -8,7 +9,7 @@ int main() {
     square.setLength(5);
     square.setWidth(4);
     double area = square.calculateArea();
-    cout << "The area is: " << area << endl;
+    std::cout << "The area is: " << area << std::endl;
 
 
 
