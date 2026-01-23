@@ -34,16 +34,31 @@ public:
 // Reassign i with the first index after the second run, or 0 if the second run ends at the array's end
 // Go to step 2
 
-       for (int i = 0; i < arrayLength-1; i++) {
-         int lengthofrun = GetSortedRunLength(array,arrayLength,i);
-         if (lengthofrun == arrayLength) {
-             return; //they are sorted
+       for (int i = 0; i < arrayLength;) {
+         int run1 = GetSortedRunLength(array,arrayLength,i);
+         if (i == 0 && run1 == arrayLength) {
+             return; //all elements are sorted
          }
          else {
-            i = i + lengthofrun - 1; //set for next run
+            int startindex = i; //position of first sorted array's starting index
+            int endindex = startindex + run1 - 1; //position of first sorted array's ending index
+            int startindex2 = endindex + 1;
+
+
+            if (startindex2 >= arrayLength) {
+               i = 0;
+               continue;
+            }
+            int run2 = GetSortedRunLength(array,arrayLength,startindex2); //second run length is the ending index of first run +1
+            int endindex2 = startindex2 + run2 -1;
+            Merge(array, startindex, endindex, endindex2); //merge 1st and 2nd runs
+            i = endindex2 + 1;
          }
-        Merge(array, i, i + lengthofrun - 1, i + 2*lengthofrun - 1);
-        i = i + 2*lengthofrun - 1;
+         if (i >= arrayLength) { //can be ==
+            i = 0;
+
+         }
+
       }
    }
    
