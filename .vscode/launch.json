@@ -8,8 +8,8 @@
       "args": [],
       "stopAtEntry": false,
       "externalConsole": true,
-      "cwd": "c:/Users/Administrator/Desktop/CSE_290_Repo/khenikman_CSE_290",
-      "program": "c:/Users/Administrator/Desktop/CSE_290_Repo/khenikman_CSE_290/build/Debug/outDebug",
+      "cwd": "c:/Users/Administrator/Desktop/CSE_290/khenikman_CSE_290/Natural Merge Sort Lab",
+      "program": "c:/Users/Administrator/Desktop/CSE_290/khenikman_CSE_290/Natural Merge Sort Lab/build/Debug/outDebug",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [
