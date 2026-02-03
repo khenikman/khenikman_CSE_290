@@ -6,30 +6,33 @@ using namespace std;
 vector<int> createCodes(vector<int> input) {
 
     int sum = 0;
+    int thirteenthnum;
 
-    for (int i = 0; i < 13; i++){
+    for (int i = 0; i < 10; i++){
 
-        sum += input[i]; //sum all 12 numbers
+        sum += input[i]; //sum all 12 digits
 
 
 
 
     }
 
-    if ((sum % 10) != 0) {
+    if (10 - (sum % 10) != 0) {
         thirteenthnum = 10 - (sum % 10);
     }
     else {
         thirteenthnum = 0;
+
     }
 
-        if (input[i] % == 0)
+            input.push_back(thirteenthnum);
+    //     if (input[i] % == 0)
 
-    // Get a different random number each time the program runs
-    srand(time(0));
+    // // Get a different random number each time the program runs
+    // srand(time(0));
 
-    int random = rand() % 2;
-    input.push_back(random);
+    // int random = rand() % 2;
+
     
     return input;
 
