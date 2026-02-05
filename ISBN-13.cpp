@@ -11,6 +11,16 @@
 
 using namespace std;
 
+struct SciElem {
+
+std::string name;
+
+std::string isbnCode;
+
+};
+
+SciElem *sciElem = new SciElem;
+
 int main() {
 
     string isbn_input = "978038554734";
