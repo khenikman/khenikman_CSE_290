@@ -3,41 +3,65 @@
 using namespace std;
 
 //change made by Kyle
+//This Code works for all values of input less than 13 b/c int can only hold 12 values
 vector<vector<int>> createCodes(vector<vector<int>> input) {
 
     int sum = 0;
     int thirteenthnum;
+    vector<vector<int>> finalList;
+    int randomThirteenth;
+
+    //Change made by Hadit
+    //Check if input size is less than 13.
+    if (input.size() > 13) {
+        cout <<"Error: input size exceeds 13. The maximun size allowed is 13."<< endl;
+        return finalList; //This returns the empty vector
+    }
+
+    // Get a different random number each time the program runs
+    srand(time(0));
 
     for (int vectorNum = 0; vectorNum < input.size(); vectorNum++) {
+
         sum = 0;
-        for (int i = 0; i < 12; i++) {
 
-            sum += input[vectorNum][i]; //sum all 12 digits
-            
+        vector<int> resultantThirteen = input[vectorNum];
 
+        // ----------------- CASE 1  vectorNum % 3 == 0 -----
+        // This code should add 1 more digit to twelveDigitCode 
+        // All 13 digits, the sum is divisible by 10
+        if (vectorNum % 3 == 0) {
+            for (int i = 0; i < 12; i++){
 
+            sum += resultantThirteen[i]; //sum all 12 digits
+                
 
-        }
+            }
 
-        if (sum % 10 != 0) {
-            thirteenthnum = 10 - (sum % 10);
+            if (sum % 10 != 0) {
+                thirteenthnum = 10 - (sum % 10);
+            }
+            else {
+                thirteenthnum = 0;
+
+            }
+
+            resultantThirteen.push_back(thirteenthnum);
+
         }
         else {
-            thirteenthnum = 0;
-
+            // -------  CASE 2  vectorNum % 3 != 0 
+            // add 1 more digit to the twelveDigitCode - random number
+            randomThirteenth = rand() % 10;
+            resultantThirteen.push_back(randomThirteenth);
+            
         }
-
-        input[vectorNum].push_back(thirteenthnum);
-}
-    //     if (input[i] % == 0)
-
-    // // Get a different random number each time the program runs
-    // srand(time(0));
-
-    // int random = rand() % 2;
+    
+        finalList.push_back(resultantThirteen);
+    }
 
     
-    return input;
+    return finalList;
 
 }
 
