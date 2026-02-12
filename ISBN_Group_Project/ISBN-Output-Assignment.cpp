@@ -2,9 +2,9 @@
 #include <vector>
 using namespace std;
 
-//change made by Kyle
+//Changes made by Group 4 (Kyle, Hadit, Bianca)
 //This Code works for all values of input less than 13 b/c int can only hold 12 values
-vector<vector<int>> createCodes(vector<vector<int>> input) {
+vector<vector<int>> generateListOfThirteen(vector<vector<int>> input) {
 
     int sum = 0;
     int thirteenthnum;
@@ -72,7 +72,7 @@ int main() {
     vector<int> numbers4 = {1,4,2,3,4,5,2,2,1,4,6,6}; //40
     vector<int> numbers5 = {1,4,2,3,4,5,2,2,1,4,6,5}; //39
     vector<vector<int>> twodarray = {numbers1, numbers2, numbers3, numbers4, numbers5};
-    vector<vector<int>> thriteen_digits = createCodes(twodarray);
+    vector<vector<int>> thriteen_digits = generateListOfThirteen(twodarray);
     for (int vectorNum = 0; vectorNum < 5; vectorNum++) {
         for (int i = 0; i < 13; i++) {
             cout << thriteen_digits[vectorNum][i] << " ";
