@@ -8,13 +8,11 @@
 using namespace std;
 
     struct Node {
-        string code;     // ISBN code
-        // bool validCode;  // true/false
-        string original_isbn; //ISBN code with dashes
+        string isbncode;     // ISBN code
         string subject;  // Category for ISBN
         Node* next;      //Points to next node
 
-        Node(string myData) : code(myData), //Constructor for creating nodes
+        Node(string myData) : isbncode(myData), //Constructor for creating nodes
         subject(""), next(nullptr) {}
 
 
@@ -53,19 +51,19 @@ using namespace std;
         
         Node *referenceHead = head; //reference to head node we don't want to mess with that
 
-        if (head != nullptr) {
+        if (head == nullptr) {return;}   // <-- skip empty lists entirely        
+
         
         cout << referenceHead->subject << ": ";
-        }
+        
 
         while (referenceHead != nullptr) {
-            cout << referenceHead->code << "  ";
+            cout << referenceHead->isbncode << "  ";
             referenceHead = referenceHead->next;
 
         }
         cout << endl << endl;
 
-        delete referenceHead; //after we add the node we can delete our reference to the head node
     }
 
 //prints a linked lists
@@ -130,7 +128,7 @@ vector<string> parseFile() {
         
         string thirteen_digit_number = line;
 
-        for (int i = 0; i < thirteen_digit_number.length() -1; i++) {
+        for (int i = 0; i < thirteen_digit_number.length(); i++) {
             if (thirteen_digit_number.substr(i, 1) == "-") {
                 thirteen_digit_number.erase(i, 1); //parse through each isbn and erase delimeters
                 i--;
@@ -278,43 +276,32 @@ int main() {
     while (continueProgram) {
         
         cout << "Which ISBN subject do you want to view?\n"
-         << "Options: All, Biology, English, Math, Physics, Psychology, Computer Science, "
-         << "Spanish, French, Chemistry, Uncategorized\n"
+         << "Options: all, biology, english, math, physics, psychology, computer science, "
+         << "spanish, french, chemistry, uncategorized\n"
          << "Enter one: ";
         getline(cin, choice);
         if (choice == "all") { print_all_subjects(); continue; }
-        else if (choice == "biology") { selectedHead = biologyHead; }
-        else if (choice == "english") { selectedHead = englishHead; }
-        else if (choice == "math") { selectedHead = mathHead; }
-        else if (choice == "physics") { selectedHead = physicsHead; }
-        else if (choice == "psychology") { selectedHead = psychologyHead; }
+        else if (choice == "biology") { selectedHead = biologyHead; print_a_subject(selectedHead);}
+        else if (choice == "english") { selectedHead = englishHead; print_a_subject(selectedHead);}
+        else if (choice == "math") { selectedHead = mathHead; print_a_subject(selectedHead);}
+        else if (choice == "physics") { selectedHead = physicsHead; print_a_subject(selectedHead);}
+        else if (choice == "psychology") { selectedHead = psychologyHead; print_a_subject(selectedHead);}
         else if (choice == "computer science" || choice == "computerscience" || choice == "cs")
-            { selectedHead = csHead; }
-        else if (choice == "spanish") { selectedHead = spanishHead; }
-        else if (choice == "french") { selectedHead = frenchHead; }
-        else if (choice == "chemistry") { selectedHead = chemistryHead; }
+            { selectedHead = csHead; print_a_subject(selectedHead);}
+        else if (choice == "spanish") { selectedHead = spanishHead; print_a_subject(selectedHead);}
+        else if (choice == "french") { selectedHead = frenchHead; print_a_subject(selectedHead);}
+        else if (choice == "chemistry") { selectedHead = chemistryHead; print_a_subject(selectedHead);}
         else if (choice == "uncategorized" || choice == "uncategorised")
-            { selectedHead = uncategorizedHead; }
+            { selectedHead = uncategorizedHead; print_a_subject(selectedHead);}
         else {
         cout << "Invalid subject. Try again.\n";
         }
 
-        print_a_subject(selectedHead);
+        
 
 
     }
 
-
-    printlist(biologyHead); //prints some of the lists
-    printlist(mathHead);
-    printlist(chemistryHead);
-    printlist(frenchHead);
-    printlist(englishHead);
-    printlist(physicsHead);
-    printlist(spanishHead);
-    printlist(psychologyHead);
-    printlist(csHead);
-    printlist(uncategorizedHead);
 
 
     return 0;
