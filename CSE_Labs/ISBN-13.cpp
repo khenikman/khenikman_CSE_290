@@ -10,11 +10,12 @@ using namespace std;
     struct Node {
         string code;     // ISBN code
         // bool validCode;  // true/false
+        string original_isbn; //ISBN code with dashes
         string subject;  // Category for ISBN
         Node* next;      //Points to next node
 
         Node(string myData) : code(myData), //Constructor for creating nodes
-        validCode(valid), subject(""), next(nullptr) {}
+        subject(""), next(nullptr) {}
 
 
 
@@ -58,13 +59,59 @@ using namespace std;
         }
 
         while (referenceHead != nullptr) {
-            cout << referenceHead->code << " ";
+            cout << referenceHead->code << "  ";
             referenceHead = referenceHead->next;
 
         }
+        cout << endl << endl;
 
         delete referenceHead; //after we add the node we can delete our reference to the head node
     }
+
+//prints a linked lists
+void print_a_subject(Node* Subject) {
+    printlist(Subject); 
+}
+
+//prints all of the linked lists
+void print_all_subjects() {
+    printlist(biologyHead); 
+    printlist(chemistryHead);
+    printlist(csHead);
+    printlist(englishHead);
+    printlist(frenchHead);
+    printlist(mathHead);
+    printlist(physicsHead);
+    printlist(psychologyHead);
+    printlist(spanishHead);
+    printlist(uncategorizedHead);
+}
+
+//returns original isbn list with delimeters
+vector<string> isbnlist() {
+
+
+    vector<string> all_isbn_inputs_with_delimeters;
+
+     ifstream inFile("isbn.txt");  // open isbn file for reading
+
+    if (!inFile) { // makes sure the file opens correctly
+        cout << "Error opening file.\n";
+        return all_isbn_inputs_with_delimeters;
+    }
+
+    string line;
+    while (getline(inFile, line)) {
+        
+        string thirteen_digit_number = line;
+        all_isbn_inputs_with_delimeters.push_back(thirteen_digit_number); //add isbn to all_isbn_inputs_with_delimeters
+    }
+        //All lines of file have been parsed through
+        inFile.close();
+    return all_isbn_inputs_with_delimeters;
+
+
+}   
 
 //returns a vector of all the isbn string inputs without the delimeters
 vector<string> parseFile() {
@@ -130,6 +177,7 @@ int is_isbn_element(string thirteen_digit_number) { //takes in a 13 digit code
 //Assigns all of the head nodes with their respective isbn elements
 void isbn_element() {
 
+    vector<string> original_isbn = isbnlist(); //Isbn code we are adding to the node
     vector<string> thirteen_digits = parseFile(); //grabs the list of parsed isbn #'s
     for (int i = 0; i < thirteen_digits.size(); i++) {
 
@@ -137,14 +185,12 @@ void isbn_element() {
 
         int primeNumber = is_isbn_element(thirteen_digit_number); // assigns the prime number to the check sum of the
                                                                   // thirteen digit number or 0 if it's not an isbn
-    
-
-
+        
 
      
     
     // isbn code we will be adding to the node
-    string isbnCode = thirteen_digit_number;
+    string isbnCode = original_isbn[i];
 
     // Adding potential ISBN to node
     Node *newIsbn = new Node(isbnCode);
@@ -223,12 +269,53 @@ void isbn_element() {
 
 int main() {
 
-  
     isbn_element(); //stores all isbn nodes in their respective categories
+
+    int continueProgram = true;
+    string choice;
+    Node* selectedHead = nullptr;
+
+    while (continueProgram) {
+        
+        cout << "Which ISBN subject do you want to view?\n"
+         << "Options: All, Biology, English, Math, Physics, Psychology, Computer Science, "
+         << "Spanish, French, Chemistry, Uncategorized\n"
+         << "Enter one: ";
+        getline(cin, choice);
+        if (choice == "all") { print_all_subjects(); continue; }
+        else if (choice == "biology") { selectedHead = biologyHead; }
+        else if (choice == "english") { selectedHead = englishHead; }
+        else if (choice == "math") { selectedHead = mathHead; }
+        else if (choice == "physics") { selectedHead = physicsHead; }
+        else if (choice == "psychology") { selectedHead = psychologyHead; }
+        else if (choice == "computer science" || choice == "computerscience" || choice == "cs")
+            { selectedHead = csHead; }
+        else if (choice == "spanish") { selectedHead = spanishHead; }
+        else if (choice == "french") { selectedHead = frenchHead; }
+        else if (choice == "chemistry") { selectedHead = chemistryHead; }
+        else if (choice == "uncategorized" || choice == "uncategorised")
+            { selectedHead = uncategorizedHead; }
+        else {
+        cout << "Invalid subject. Try again.\n";
+        }
+
+        print_a_subject(selectedHead);
+
+
+    }
+
 
     printlist(biologyHead); //prints some of the lists
     printlist(mathHead);
+    printlist(chemistryHead);
     printlist(frenchHead);
+    printlist(englishHead);
+    printlist(physicsHead);
+    printlist(spanishHead);
+    printlist(psychologyHead);
+    printlist(csHead);
+    printlist(uncategorizedHead);
+
 
     return 0;
 
