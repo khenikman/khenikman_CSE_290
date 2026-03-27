@@ -112,8 +112,22 @@ bool insertInTable(Vehicle vehicle) {
 
 
 
-void deleteInTable(int key) {
-    
+bool deleteInTable(string Model) {
+    int key = setHashValue(Model);
+    for (auto bucket = hashTable.begin(); bucket != hashTable.end(); bucket++) {
+
+        for(auto car = bucket->begin(); car != bucket->end(); car++) {
+
+            if (setHashValue(car->Model) == key) {
+                cout << Model << " exists was deleted from the table!\n";
+                bucket->erase(car);
+                return true;
+            }
+
+        }
+    }
+    cout << Model << " does not exist in the table!\n";
+    return false;
 }
 
 int setHashValue(string key) {
@@ -124,6 +138,21 @@ int setHashValue(string key) {
     return hashcode;
 }
 
+bool findInTable(int key) {
+
+    for (auto bucket = hashTable.begin(); bucket != hashTable.end(); bucket++) {
+
+        for(auto car = bucket->begin(); car != bucket->end(); car++) {
+
+            if (setHashValue(car->Model) == key) {
+                cout << car->Model << " exists in the table!\n";
+                return true;
+            }
+
+        }
+    }
+    return false;
+}
 
 
 
@@ -151,15 +180,7 @@ vector<Vehicle> parseFile() {
         
         int startpos = 0;
         int counter = -1;
-        // string Model;
-        // string Brand;
-        // int Year;
-        // int MPG_City;
-        // int MPG_Highway;
-        // string Drivetrain;
-        // string Transmission;
-        // string Engine;
-        
+
         for (int i = 0; i < 9; i++) {
             counter++;
             startpos = counter;
@@ -211,6 +232,10 @@ int main() {
     for (int i = 0; i < vehiclesToAdd.size(); i++) {
         insertInTable(vehiclesToAdd[i]);
     }
+
+    printTable();
+
+    deleteInTable("2024 Honda Civic");
 
     printTable();
 
