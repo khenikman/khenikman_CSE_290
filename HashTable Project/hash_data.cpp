@@ -47,17 +47,12 @@ void printTable() {
 
 bool insertInTable(Vehicle vehicle) {
     int hashvalue = setHashValue(vehicle.Model); //hashes the vehicle model
-    //int loadFactor = itemCount / hashTable.size();
-    //int listSize = hashTable.size(); // # of buckets exists
     int listcapacity = hashTable.capacity(); // size of vector
     if (listcapacity*(.75) <= itemCount) { // # of buckets used is >=  75% capacity, double capacity
 
         hashTable.resize(listcapacity * 2);
 
     }
-    
-    //cout << hashTable.capacity() << ". ";
-    //cout << itemCount << "! \n";
 
     int bucket = (hashvalue % (hashTable.capacity() -1)); //bucket #'s we can use are from 0 - capacity
     int startPosition = bucket; // first bucket we are checking
@@ -71,6 +66,7 @@ bool insertInTable(Vehicle vehicle) {
         }
         hashTable[bucket].push_back(vehicle);
         elementInserted = true;
+        cout << "\n" << vehicle.Model << " was added to the table!\n\n";
         return elementInserted;
     }
     else {
@@ -86,6 +82,7 @@ bool insertInTable(Vehicle vehicle) {
                     }
                     hashTable[bucket].push_back(vehicle); //add to that bucket
                     elementInserted = true;
+                    cout << "\n" << vehicle.Model << " was added to the table!\n\n";
                     return elementInserted;
                 }
             }
@@ -97,11 +94,12 @@ bool insertInTable(Vehicle vehicle) {
                     }
                     hashTable[bucket].push_back(vehicle);
                     elementInserted = true;
+                    cout << "\n" << vehicle.Model << " was added to the table!\n\n";
                     return elementInserted;
                 }
             }
             if (bucket == startPosition) { //no position to insert
-                cout << "element not inserted";
+                cout << "\n" << "Element could not be inserted" << "\n\n";
                 return false;
             }
         }
@@ -119,14 +117,14 @@ bool deleteInTable(string Model) {
         for(auto car = bucket->begin(); car != bucket->end(); car++) {
 
             if (setHashValue(car->Model) == key) {
-                cout << Model << " exists was deleted from the table!\n";
+                cout << "\n" << Model << " was deleted from the table!\n\n";
                 bucket->erase(car);
                 return true;
             }
 
         }
     }
-    cout << Model << " does not exist in the table!\n";
+    cout << "\n" << Model << " does not exist in the table!\n";
     return false;
 }
 
@@ -138,19 +136,21 @@ int setHashValue(string key) {
     return hashcode;
 }
 
-bool findInTable(int key) {
+bool findInTable(string Model) {
 
+    int key = setHashValue(Model);
     for (auto bucket = hashTable.begin(); bucket != hashTable.end(); bucket++) {
 
         for(auto car = bucket->begin(); car != bucket->end(); car++) {
 
             if (setHashValue(car->Model) == key) {
-                cout << car->Model << " exists in the table!\n";
+                cout << "\n" << car->Model << " exists in the table!\n\n";
                 return true;
             }
 
         }
     }
+    cout << "\n" << Model << " does not exist in the table!\n\n";
     return false;
 }
 
@@ -214,20 +214,8 @@ vector<Vehicle> parseFile() {
 
 }
 int main() {
-    //cout << "Hello World github FINALLY works :)" << endl;
-    //cout << "Sucessfully cloned git repo from main pc to laptop only took like 2 hrs. Super frustrating!" << endl;
-    // vector<string> data = parseFile();
-    // for (int i= 0; i< data.size(); i++) {
-    //     cout << data[i] << "\n";
-    // }
-    //cout << setHashValue("2024 Subaru Forester");
+
     vector<Vehicle> vehiclesToAdd = parseFile();
-
-
-
-    // for (int i = 0; i < vehiclesToAdd.size(); i++) {
-    //     cout << vehiclesToAdd[i].Model << " | ";
-    // }
 
     for (int i = 0; i < vehiclesToAdd.size(); i++) {
         insertInTable(vehiclesToAdd[i]);
@@ -235,9 +223,15 @@ int main() {
 
     printTable();
 
+    findInTable("2024 Subaru Forester");
+
     deleteInTable("2024 Honda Civic");
 
+    deleteInTable("2024 Subaru Forester");
+
     printTable();
+
+    findInTable("2024 Subaru Forester");
 
     return 0;
 }
