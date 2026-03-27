@@ -8,6 +8,8 @@
 
 using namespace std;
 
+int itemCount;
+int bucketSize = 3;
 
 
 struct Vehicle {
@@ -45,57 +47,73 @@ void printTable() {
 
 bool insertInTable(Vehicle vehicle) {
     int hashvalue = setHashValue(vehicle.Model); //hashes the vehicle model
-    int listSize = hashTable.size(); // # of buckets
+    //int loadFactor = itemCount / hashTable.size();
+    //int listSize = hashTable.size(); // # of buckets exists
     int listcapacity = hashTable.capacity(); // size of vector
-    if (listcapacity*(.75) <= listSize) { // # of buckets used is >=  75% capacity, double capacity
+    if (listcapacity*(.75) <= itemCount) { // # of buckets used is >=  75% capacity, double capacity
 
         hashTable.resize(listcapacity * 2);
 
     }
     
-    int bucket = hashvalue % hashTable.capacity(); //bucket #'s we can use are from 0 - capacity
+    //cout << hashTable.capacity() << ". ";
+    //cout << itemCount << "! \n";
+
+    int bucket = (hashvalue % (hashTable.capacity() -1)); //bucket #'s we can use are from 0 - capacity
     int startPosition = bucket; // first bucket we are checking
     bool elementInserted = false; //element bucket not found
-
+    //cout << bucket << " ";
     //while (!elementInserted) {
+    if (hashTable[bucket].size() < bucketSize) {
+
         if (hashTable[bucket].empty()) { //current bucket is empty add element
-            hashTable[bucket].push_back(vehicle);
-            elementInserted = true;
-            return elementInserted;
+            itemCount++;
         }
-        else {
-            while(!elementInserted) { //while element has not been inserted
+        hashTable[bucket].push_back(vehicle);
+        elementInserted = true;
+        return elementInserted;
+    }
+    else {
+        while(!elementInserted) { //while element has not been inserted
             if (bucket+1 < listcapacity) { //check if we have more buckets before we have to loop back to the start of the list
                 bucket++; //iterate to the next bucket
-                if (hashTable[bucket].empty() == true) { //check if its empty
+                if (hashTable[bucket].size() < bucketSize) {
+
+                    if (hashTable[bucket].empty() == true) { //check if its empty
+
+                        itemCount++;
+
+                    }
                     hashTable[bucket].push_back(vehicle); //add to that bucket
                     elementInserted = true;
-                    cout << "christian";
                     return elementInserted;
                 }
             }
             else { //we have gone through the whole list
                 bucket = 0;
-                if (hashTable[bucket].empty()) {
+                if (hashTable[bucket].size() < bucketSize) {
+                    if (hashTable[bucket].empty()) {
+                        itemCount++;
+                    }
                     hashTable[bucket].push_back(vehicle);
                     elementInserted = true;
-                    cout << "christian";
                     return elementInserted;
                 }
             }
             if (bucket == startPosition) { //no position to insert
+                cout << "element not inserted";
                 return false;
             }
         }
 
-        }
-        
-        }
-    //}
+    }
+    itemCount++;
+}
+
 
 
 void deleteInTable(int key) {
-
+    
 }
 
 int setHashValue(string key) {

@@ -23,3 +23,11 @@
 2024 Toyota Corolla|Toyota|2024|169|32|41|FWD|CVT|2.0L I4
 2024 Honda Civic|Honda|2024|158|31|40|FWD|CVT|2.0L I4
 2024 Nissan Rogue|Nissan|2024|201|28|35|AWD|CVT|1.5L I3 Turbo
+2025 Honda Pilot|Honda|2025|285|19|27|FWD|10-Speed Automatic|3.5L V6
+2025 Hyundai Tucson|Hyundai|2025|187|25|33|FWD|8-Speed Automatic|2.5L I4
+2025 Kia Telluride|Kia|2025|291|20|26|FWD|8-Speed Automatic|3.8L V6
+2025 Acura TLX|Acura|2025|272|22|31|FWD|10-Speed Automatic|2.0L I4 Turbo
+2025 Nissan Sentra|Nissan|2025|149|30|40|FWD|CVT|2.0L I4
+2025 Mazda3 Sedan|Mazda|2025|191|27|37|FWD|6-Speed Automatic|2.5L I4
+2025 Lexus ES 250|Lexus|2025|203|25|34|AWD|8-Speed Automatic|2.5L I4
+2025 Volkswagen Tiguan|Volkswagen|2025|201|26|34|FWD|8-Speed Automatic|2.0L I4 Turbo
