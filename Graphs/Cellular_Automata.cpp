@@ -14,16 +14,32 @@ class CellNode {
 
        CellNode(int initialState = 0) : state(initialState), left(nullptr), right(nullptr) {} //initial state of all nodes is 0
 
-int applyRule(int left, int self, int right) { //ruleset given by Michael Lewis
-    if (left == 1 && self == 1 && right == 1) return 1; // 111
-    if (left == 1 && self == 1 && right == 0) return 1; // 110
-    if (left == 1 && self == 0 && right == 1) return 1; // 101
-    if (left == 1 && self == 0 && right == 0) return 1; // 100
-    if (left == 0 && self == 1 && right == 1) return 1; // 011
-    if (left == 0 && self == 1 && right == 0) return 0; // 010
-    if (left == 0 && self == 0 && right == 1) return 1; // 001
-    return 0; // 000
+// int applyRule(int left, int self, int right) { //ruleset given by Michael Lewis
+//     if (left == 1 && self == 1 && right == 1) return 1; // 111
+//     if (left == 1 && self == 1 && right == 0) return 1; // 110
+//     if (left == 1 && self == 0 && right == 1) return 1; // 101
+//     if (left == 1 && self == 0 && right == 0) return 1; // 100
+//     if (left == 0 && self == 1 && right == 1) return 1; // 011
+//     if (left == 0 && self == 1 && right == 0) return 0; // 010
+//     if (left == 0 && self == 0 && right == 1) return 1; // 001
+//     return 0; // 000
+// }
+
+int applyRule(int left, int self, int right) { //ruleset given by Michael Lewis //Rule 30 00011110 
+    if (left == 1 && self == 1 && right == 1) return 0; // 111 focus digit: 7
+    if (left == 1 && self == 1 && right == 0) return 0; // 110 focus digit: 6
+    if (left == 1 && self == 0 && right == 1) return 0; // 101 focus digit: 5
+    if (left == 1 && self == 0 && right == 0) return 1; // 100 focus digit: 4
+    if (left == 0 && self == 1 && right == 1) return 1; // 011 focus digit: 3
+    if (left == 0 && self == 1 && right == 0) return 1; // 010 focus digit: 2
+    if (left == 0 && self == 0 && right == 1) return 1; // 001 focus digit: 1
+    return 0; // 000 focus digit: 0
 }
+
+//   int applyRule(int left, int myself, int right) {
+//       int focusedDigit = (left << 2) | (myself << 1) | right;
+//       return (60 >> focusedDigit) & 1;
+//   }
 
 void printGraph(vector<CellNode*> nodes) { //prints a generation of cell nodes
     for (int i = 0; i < nodes.size(); i++) {
@@ -38,8 +54,8 @@ void printGraph(vector<CellNode*> nodes) { //prints a generation of cell nodes
 
 int main() {
 
-    int size = 16; //Number of cellular nodes connected to each other
-    int generations = 10; //Number of generations of cellular nodes
+    int size = 50; //Number of cellular nodes connected to each other
+    int generations = 30; //Number of generations of cellular nodes
     vector<CellNode*> nodes(size); //create a list to hold nodes
 
     for (int i = 0; i < size; i++) { //Set the initial nodes of each node to 0
